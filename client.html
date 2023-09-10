@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>websocket测试</title>		
+	</head>
+	<body>
+		<!-- <button type="button" id="btn" >按钮</button>
+		<input type="text" name="" id="demo" value="" />
+		<div id="res">接收到的服务器端消息显示区域</div> -->
+        <button onclick="sendMessage()">发消息给服务器</button>
+	</body>
+</html>
+<!-- <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> -->
+<script type="text/javascript"> 
+	// 打开一个 web socket，设定websocket服务器地址和端口
+	const ws = new WebSocket("ws://127.0.0.1:8888/");
+
+	//开启连接open后客户端处理方法
+	ws.onopen = function(event)
+	{
+	  // Web Socket 已连接上，在页面中显示消息
+	//   document.getElementById('res').innerHTML="当前客户端已经连接到websocket服务器";
+    console.log('websocket已连接')
+	   
+	};
+	// 点击按钮时给websocket服务器端发送消息
+	// $('#btn').click(function(){
+	// 	var value = $('#demo').val();
+    //     console.log(value)
+	// 	ws.send(value);
+	// })
+	// 接收消息后客户端处理方法
+	ws.onmessage = function (event) 
+	{ 
+        //接收到服务端的消息后，输出打印收到消息的内容
+	  console.log('收到服务端回复的消息：'+event.data);
+	//   $('#res').text(evt.data);
+	};
+	
+	// 关闭websocket
+	ws.onclose = function(event)
+	{ 
+	  // 关闭 websocket
+	  alert("连接已关闭..."); 
+	};
+    //发送给服务端的消息内容
+    function sendMessage(){
+        ws.send("hello server, I am client")
+    }
+
+</script>
